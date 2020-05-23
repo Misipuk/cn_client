@@ -30,6 +30,7 @@ userRequest.get_users(at)
     "city": "4",
 })"""
 #userRequest.getCafes(at)
+#userRequest.delReview(at, 2, "PanAleha")
 userRequest.getCafeReviews(at, 1)
 #userRequest.add_cafe_media(at, 1, "D:\sem6_protocols\cn_client\photos\Tree.jpg")
 """userRequest.add_cafe_review(at, {

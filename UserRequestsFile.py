@@ -26,7 +26,7 @@ class UserRequest:
         client_sock.sendall(b'Host: MyServer\n')
         client_sock.sendall(b'Accept: application/json\n')
         client_sock.sendall(
-            b'Authorization: eyJsb2dpbiI6ICJsIiwgImV4cGlyZSI6IDE1ODk4Nzk0NjMsICJrZXkiOiAieHFrMmVJamJ3eFJzdDVtd3JaLVRHZnJvZTctUzF4ZXEzTzNxSW9CN0JWQT0ifQ==\n')
+            b'Authorization: eyJsb2dpbiI6ICJUZXN0VXNlciIsICJleHBpcmUiOiAxNTkwMjUyMzg3LCAia2V5IjogIlloS203VFQzOW5OQkpKeUZkSEEwWkxrZkF1QzFOUUVFdWJQWmMyOTB4YVU9In0=\n')
         client_sock.sendall(b'\n')
         data = client_sock.recv(1024)
         client_sock.close()
@@ -53,7 +53,7 @@ class UserRequest:
     def getCafeReviews(self, auth_token: str, cafe_id: int):  # with Reviews
         client_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_sock.connect(('localhost', PORT))
-        client_sock.sendall(b'GET /cafes/review?cafe_id=%d HTTP/1.1 \n' % cafe_id)
+        client_sock.sendall(b'GET /cafe/review?cafe_id=%d HTTP/1.1 \n' % cafe_id)
         #client_sock.sendall(b'POST /cafe/media?cafe_id=%d&type=photo HTTP/1.1 \n' % cafe_id)
         client_sock.sendall(b'Host: MyServer\n')
         client_sock.sendall(b'Accept: application/json\n')
@@ -107,14 +107,14 @@ class UserRequest:
         client_sock.close()
         print('Received', repr(data))
 
-    def delReview(self): # TODO # byReviewID
+    def delReview(self,  auth_token: str, rev_id: int, us_log: str): # TODO # byReviewID
         client_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_sock.connect(('localhost', PORT))
-        client_sock.sendall(b'POST /delreview HTTP/1.1 \n')
+        client_sock.sendall(b'DELETE /cafe/review?rev_id=%d&us_log=PanAleha HTTP/1.1 \n' % rev_id)
+        # client_sock.sendall(b'POST /cafe/media?cafe_id=%d&type=photo HTTP/1.1 \n' % cafe_id)
         client_sock.sendall(b'Host: MyServer\n')
         client_sock.sendall(b'Accept: application/json\n')
-        client_sock.sendall(
-            b'Authorization: eyJsb2dpbiI6ICJsIiwgImV4cGlyZSI6IDE1ODk4Nzk0NjMsICJrZXkiOiAieHFrMmVJamJ3eFJzdDVtd3JaLVRHZnJvZTctUzF4ZXEzTzNxSW9CN0JWQT0ifQ==\n')
+        client_sock.sendall(b'Authorization: %s\n' % auth_token.encode())
         client_sock.sendall(b'\n')
         data = client_sock.recv(1024)
         client_sock.close()
@@ -148,7 +148,7 @@ class UserRequest:
         client_sock.close()
         print('Received', repr(data))
         # TODO
-        return "eyJsb2dpbiI6ICJUZXN0VXNlciIsICJleHBpcmUiOiAxNTkwMjQ4MjUxLCAia2V5IjogIkRYSGZEcHhKNVM2MExIODh1akVtNHdxRVhPRjJkSnFrWHE1WTRoa2hITk09In0="
+        return "eyJsb2dpbiI6ICJUZXN0VXNlciIsICJleHBpcmUiOiAxNTkwMjUyNDAzLCAia2V5IjogIlkxVHgxeEFxRWNTdjhvZE05TjhCR3RycXYzOGZvdzJTTVBJX3lLOU1NSEU9In0="
 
     def get_users(self, auth_token: str):
         client_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
