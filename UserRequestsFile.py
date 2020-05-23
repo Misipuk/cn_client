@@ -2,7 +2,7 @@ import json
 import socket
 from typing import Dict
 
-PORT = 9091
+PORT = 9090
 
 
 class UserRequest:
@@ -107,7 +107,7 @@ class UserRequest:
         client_sock.close()
         print('Received', repr(data))
 
-    def delReview(self,  auth_token: str, rev_id: int, us_log: str): # TODO # byReviewID
+    def delReview(self,  auth_token: str, rev_id: int, us_log: str):
         client_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_sock.connect(('localhost', PORT))
         client_sock.sendall(b'DELETE /cafe/review?rev_id=%d&us_log=PanAleha HTTP/1.1 \n' % rev_id)
@@ -148,7 +148,7 @@ class UserRequest:
         client_sock.close()
         print('Received', repr(data))
         # TODO
-        return "eyJsb2dpbiI6ICJUZXN0VXNlciIsICJleHBpcmUiOiAxNTkwMjUyNDAzLCAia2V5IjogIlkxVHgxeEFxRWNTdjhvZE05TjhCR3RycXYzOGZvdzJTTVBJX3lLOU1NSEU9In0="
+        return "eyJsb2dpbiI6ICJQaXp6YU93bmVyIiwgImV4cGlyZSI6IDE1OTAyNjQ1MTgsICJrZXkiOiAiWDBTcmZFOFo1bkxfTm9UbzBNVG5McnFvY1NCemtOejdlaGhPQXIzLXFFMD0ifQ=="
 
     def get_users(self, auth_token: str):
         client_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
