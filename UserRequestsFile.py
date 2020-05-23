@@ -70,20 +70,24 @@ class UserRequest:
         client_sock.sendall(b'Host: MyServer\n')
         client_sock.sendall(b'Accept: application/json\n')
         client_sock.sendall(
-            b'Authorization: eyJsb2dpbiI6ICJsIiwgImV4cGlyZSI6IDE1ODk4Nzk0NjMsICJrZXkiOiAieHFrMmVJamJ3eFJzdDVtd3JaLVRHZnJvZTctUzF4ZXEzTzNxSW9CN0JWQT0ifQ==\n')
+            b'Authorization: eyJsb2dpbiI6ICJQYW5BbGVoYSIsICJleHBpcmUiOiAxNTkwMjY2MjQyLCAia2V5IjogInJhVFVsNDV2aW0yOFpIeHBMTjl5U1hwN1o2TEU1OUF6R0MtWXFwR1Ryb3M9In0=\n')
         client_sock.sendall(b'\n')
         data = client_sock.recv(1024)
         client_sock.close()
         print('Received', repr(data))
 
-    def editCafe(self): # TODO
+    def editCafe(self,  auth_token: str, cafe: Dict[str, str]): # TODO
+        body = json.dumps(cafe).encode()
+
         client_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_sock.connect(('localhost', PORT))
-        client_sock.sendall(b'POST /editcafe HTTP/1.1 \n')
+        client_sock.sendall(b'POST /cafe HTTP/1.1 \n')
         client_sock.sendall(b'Host: MyServer\n')
         client_sock.sendall(b'Accept: application/json\n')
-        client_sock.sendall(
-            b'Authorization: eyJsb2dpbiI6ICJsIiwgImV4cGlyZSI6IDE1ODk4Nzk0NjMsICJrZXkiOiAieHFrMmVJamJ3eFJzdDVtd3JaLVRHZnJvZTctUzF4ZXEzTzNxSW9CN0JWQT0ifQ==\n')
+        client_sock.sendall(b'Content-Length: %d\n' % len(body))
+        client_sock.sendall(b'Authorization: %s\n' % auth_token.encode())
+        client_sock.sendall(b'\n')
+        client_sock.sendall(body + b'\n')
         client_sock.sendall(b'\n')
         data = client_sock.recv(1024)
         client_sock.close()
@@ -148,7 +152,7 @@ class UserRequest:
         client_sock.close()
         print('Received', repr(data))
         # TODO
-        return "eyJsb2dpbiI6ICJQaXp6YU93bmVyIiwgImV4cGlyZSI6IDE1OTAyNjQ1MTgsICJrZXkiOiAiWDBTcmZFOFo1bkxfTm9UbzBNVG5McnFvY1NCemtOejdlaGhPQXIzLXFFMD0ifQ=="
+        return "eyJsb2dpbiI6ICJQYW5BbGVoYSIsICJleHBpcmUiOiAxNTkwMjY2MzcyLCAia2V5IjogImp5bl8wbU11TzZqOW9sWTlRRFhuMVNDUkZVVDVEaWZiSExUWXFjYkYzUlU9In0="
 
     def get_users(self, auth_token: str):
         client_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
