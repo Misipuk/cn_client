@@ -22,21 +22,21 @@ at = userRequest.login(login, "loveAleha1")
 
 
 #userRequest.get_users(at)
-userRequest.getCafes(at)
-userRequest.add_cafe(at, {
+#userRequest.getCafes(at)
+"""userRequest.add_cafe(at, {
     "owner": "AlexPan",
     "name": "Aleha",
     "des": "Aleha",
     "city": "Aleha",
-})
-userRequest.getCafes(at)
+})"""
+#userRequest.getCafes(at)
 
 
-userRequest.add_cafe_media(at, 4, "D:\sem6_protocols\cn_client\photos\Tree.jpg")
+#userRequest.add_cafe_media(at, 4, "D:\sem6_protocols\cn_client\photos\Tree.jpg")
+userRequest.getCafeMedia(at, 1)
 
-
-#userRequest.getCafeReviews(at, 1)
-#userRequest.delReview(at, 2, "Alex")
+#userRequest.getCafeReviews(at, 2)
+#userRequest.delReview(at, 4, "Alex")
 #userRequest.getCafeReviews(at, 2)
 """userRequest.add_cafe_review(at, {
     "owner": "Alex",
